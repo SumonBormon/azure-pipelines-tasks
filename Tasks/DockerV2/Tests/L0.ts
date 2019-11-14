@@ -568,34 +568,18 @@ describe("DockerV2 Suite", function () {
         done();
     });
 
-    it("getDefaultLabels returns all labels when addPipelineData is true", (done: MochaDone) => {
-        console.log("TestCaseName: getDefaultLabels returns all labels when addPipelineData is true");
+    it("getDefaultLabels returns all labels when", (done: MochaDone) => {
+        console.log("TestCaseName: getDefaultLabels returns all labels");
         console.log("\n");
 
         setEnvironmentVariables();
         process.env['SYSTEM_HOSTTYPE'] = 'build';
-        const labels = pipelineutils.getDefaultLabels(true);
+        const labels = pipelineutils.getDefaultLabels();
 
         // update the label count in assert when newer labels are added
         assert.equal(labels.length, 9, "All labels are returned by default");
         done();
     });
-
-    // it("Runs successfully for docker build selected labels when addPipelineData is false", (done: MochaDone) => {
-    //     let tp = path.join(__dirname, 'TestSetup.js');
-    //     process.env[shared.TestEnvVars.containerRegistry] = "dockerhubendpoint";
-    //     process.env[shared.TestEnvVars.repository] = "testuser/testrepo";
-    //     process.env[shared.TestEnvVars.command] = shared.CommandTypes.build;
-    //     process.env[shared.TestEnvVars.addPipelineData] = "false";
-    //     let tr : ttm.MockTestRunner = new ttm.MockTestRunner(tp);
-    //     tr.run();
-
-    //     assert(tr.invokedToolCount == 1, 'should have invoked tool one time. actual: ' + tr.invokedToolCount);
-    //     assert(tr.stderr.length == 0 || tr.errorIssues.length, 'should not have written to stderr');
-    //     assert(tr.succeeded, 'task should have succeeded');
-    //     assert(tr.stdout.indexOf(`[command]docker build -f ${shared.formatPath("a/w/Dockerfile")} ${shared.DockerCommandArgs.BuildLabelsWithAddPipelineFalse} -t testuser/testrepo:11 ${shared.formatPath("a/w")}`) != -1, "docker build should run with expected arguments");
-    //     done();
-    // });
 
     function setEnvironmentVariables() : void {
         process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'] = 'https://mock.ms/mock/';
