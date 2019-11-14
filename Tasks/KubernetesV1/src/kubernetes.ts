@@ -19,7 +19,6 @@ tl.cd(tl.getInput("cwd"));
 var registryType = tl.getInput("containerRegistryType", true);
 var command = tl.getInput("command", false);
 const environmentVariableMaximumSize = 32766;
-const publishPipelineMetadata = tl.getVariable("PUBLISH_PIPELINE_METADATA");
 
 var kubeconfigfilePath;
 if (command === "logout") {
@@ -118,7 +117,7 @@ function executeKubectlCommand(clusterConnection: ClusterConnection, command: st
             const outputFormat: string = tl.getInput("outputFormat", false);
             const isOutputFormatSpecified: boolean = outputFormat && (outputFormat.toLowerCase() === "json" || outputFormat.toLowerCase() === "yaml");
             // The deployment data is pushed to evidence store only for commands like 'apply' or 'create' which support Json and Yaml output format
-            if (publishPipelineMetadata && publishPipelineMetadata.toLowerCase() == "true" && isOutputFormatSpecified && isJsonOrYamlOutputFormatSupported(command)) {
+            if (isOutputFormatSpecified && isJsonOrYamlOutputFormatSupported(command)) {
                 const allPods = JSON.parse(getAllPods(clusterConnection).stdout);
                 const clusterInfo = getClusterInfo(clusterConnection).stdout;
 
